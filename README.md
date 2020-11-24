@@ -43,6 +43,14 @@ You can change the log level for events in the `application.properties` file.
 The minimum event level is set to `info` by default which is probably
 too verbose. 
 
+## Primary files
+`Application.java` - this has the main code for the application and shows
+how to add tags and extra data via Sentry.configureScope as well as add
+MDC data
+`application.properties` - include the Sentry project properties here, as well
+as set the log levels to send to Sentry
+`pom.xml` - including the required libraries for the project
+
 # GIF
 ![Alt Text](express-js-demo.gif)
 
