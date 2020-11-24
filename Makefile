@@ -3,12 +3,12 @@
 #  SENTRY_AUTH_TOKEN
 
 SENTRY_ORG=testorg-az
-SENTRY_PROJECT=hardware-store-spring-log4j2
+SENTRY_PROJECT=java-springboot-logback
 VERSION=`sentry-cli releases propose-version`
 
 deploy: setup_release run_jar
 
-setup_release: create_release associate_commits
+setup_release: create_release # associate_commits
 
 create_release:
 	sentry-cli releases -o $(SENTRY_ORG) new -p $(SENTRY_PROJECT) $(VERSION)
