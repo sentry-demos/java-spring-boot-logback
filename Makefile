@@ -1,9 +1,9 @@
 # Must have `sentry-cli` installed globally
 # Following variable must be passed in
 #  SENTRY_AUTH_TOKEN
-
-SENTRY_ORG=testorg-az
-SENTRY_PROJECT=java-springboot-logback
+# export JAVA_HOME=/usr/bin/java
+SENTRY_ORG=will-captel
+SENTRY_PROJECT=java-1
 VERSION=`sentry-cli releases propose-version`
 
 deploy: setup_release run_jar
