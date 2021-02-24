@@ -18,4 +18,4 @@ associate_commits:
 
 run_jar:
 	mvn clean package && \
-	 java -agentpath:libsentry_agent.dylib -Dsentry.release=$(VERSION) -jar target/example-0.0.1-SNAPSHOT.jar
+	 java -Dsentry.release=$(VERSION) -jar target/example-0.0.1-SNAPSHOT.jar

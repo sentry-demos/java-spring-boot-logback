@@ -97,17 +97,8 @@ public class Application {
 		try {
 			int example = 1/0;
 		} catch (Exception e) {
+			Sentry.captureException(e);
 			return "Fail";
-		}
-		return "Success";
-	}
-
-	@GetMapping("/filtered")
-	public String HandledFilteredError() {
-		try {
-			int example = 1/0;
-		} catch (Exception e) {
-			return "Success";
 		}
 		return "Success";
 	}
