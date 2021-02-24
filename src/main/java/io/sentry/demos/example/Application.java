@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
-import io.sentry.Sentry;;
+import io.sentry.Sentry;
 
 @SpringBootApplication
 @RestController
@@ -47,7 +46,10 @@ public class Application {
 
 	// Class constructor to initialize logging 
 	public void Application() {
-
+		// Didn't work, use Spring Beans instead
+		// Sentry.init(options -> {
+		// 	options.setDsn("https://d5b8e92712fd441cbfca7856dbc689a3@o262702.ingest.sentry.io/5534142");
+		// });
 	}
 
 	@PostMapping("/checkout")
