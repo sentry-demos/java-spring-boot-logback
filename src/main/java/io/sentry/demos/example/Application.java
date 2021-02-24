@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.server.ResponseStatusException;
 import io.sentry.Sentry;
 
@@ -44,14 +46,11 @@ public class Application {
 		inventory = tempInventory;
 	}
 
-	// Class constructor to initialize logging 
 	public void Application() {
-		// Didn't work, use Spring Beans instead
-		// Sentry.init(options -> {
-		// 	options.setDsn("https://d5b8e92712fd441cbfca7856dbc689a3@o262702.ingest.sentry.io/5534142");
-		// });
+
 	}
 
+	@CrossOrigin(origins = "http://localhost:5000")
 	@PostMapping("/checkout")
 	public void CheckoutCart(@RequestHeader(name = "X-Session-ID", required = true) String sessionId,
 							 @RequestHeader(name = "X-Transaction-ID", required = true) String transactionId,
@@ -73,8 +72,6 @@ public class Application {
 		MDC.put("sessionId", sessionId);
 		MDC.put("transactionId", transactionId);
 
-		// TODO does this get called as a message?
-		logger.info("Called checkout");
 		try {
 			checkout(order.getCart());
 		} catch (Exception e) {
