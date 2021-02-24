@@ -2,14 +2,14 @@
 # Following variable must be passed in
 #  SENTRY_AUTH_TOKEN
 # export JAVA_HOME=/usr/bin/java
-SENTRY_ORG=will-captel
-SENTRY_PROJECT=java-1
+SENTRY_ORG=testorg-az
+SENTRY_PROJECT=java-springboot-logback
 SENTRY_RELEASE=`sentry-cli releases propose-version`
 ENVIRONMENT=test
 
 deploy: setup_release run_jar
 
-setup_release: create_release # associate_commits ?
+setup_release: create_release # associate_commits ? TODO
 
 create_release:
 	sentry-cli releases -o $(SENTRY_ORG) new -p $(SENTRY_PROJECT) $(SENTRY_RELEASE)

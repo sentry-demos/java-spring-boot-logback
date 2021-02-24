@@ -19,10 +19,10 @@ public class CustomBeforeSendCallback implements SentryOptions.BeforeSendCallbac
 
         // Fingerprinting
         // Example: Group together errors that are not captured by the Application class's logger.
-        if (event.getLogger() != "io.sentry.demos.example.Application" && event.getLogger() != null) {
-            System.out.print("\nnon-app, so set same fingerprint\n");
-            event.setFingerprints(Arrays.asList("non-app"));
-        }
+        // if (event.getLogger() != "io.sentry.demos.example.Application" && event.getLogger() != null) {
+        //     System.out.print("\nnon-app, so set same fingerprint\n");
+        //     event.setFingerprints(Arrays.asList("non-app"));
+        // }
         return event;
     }
 }
