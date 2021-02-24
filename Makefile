@@ -5,6 +5,7 @@
 SENTRY_ORG=will-captel
 SENTRY_PROJECT=java-1
 SENTRY_RELEASE=`sentry-cli releases propose-version`
+ENVIRONMENT=test
 
 deploy: setup_release run_jar
 
@@ -18,4 +19,4 @@ associate_commits:
 
 run_jar:
 	mvn clean package && \
-	 java -Dsentry.release=$(SENTRY_RELEASE) -jar target/example-0.0.1-SNAPSHOT.jar
+	 java -Dsentry.release=$(SENTRY_RELEASE) -Dsentry.environment=$(ENVIRONMENT) -jar target/example-0.0.1-SNAPSHOT.jar
