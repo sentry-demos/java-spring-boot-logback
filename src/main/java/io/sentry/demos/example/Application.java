@@ -98,7 +98,7 @@ public class Application {
 		try {
 			int example = 1/0;
 		} catch (Exception e) {
-			Sentry.captureException(e);
+			logger.error("caught exception", e);
 			return "Fail";
 		}
 		return "Success";

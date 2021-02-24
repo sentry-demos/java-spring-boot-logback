@@ -4,18 +4,18 @@
 # export JAVA_HOME=/usr/bin/java
 SENTRY_ORG=will-captel
 SENTRY_PROJECT=java-1
-VERSION=`sentry-cli releases propose-version`
+SENTRY_RELEASE=`sentry-cli releases propose-version`
 
 deploy: setup_release run_jar
 
-setup_release: create_release # associate_commits
+setup_release: create_release # associate_commits ?
 
 create_release:
-	sentry-cli releases -o $(SENTRY_ORG) new -p $(SENTRY_PROJECT) $(VERSION)
+	sentry-cli releases -o $(SENTRY_ORG) new -p $(SENTRY_PROJECT) $(SENTRY_RELEASE)
 
 associate_commits:
-	sentry-cli releases -o $(SENTRY_ORG) -p $(SENTRY_PROJECT) set-commits --auto $(VERSION)
+	sentry-cli releases -o $(SENTRY_ORG) -p $(SENTRY_PROJECT) set-commits --auto $(SENTRY_RELEASE)
 
 run_jar:
 	mvn clean package && \
-	 java -Dsentry.release=$(VERSION) -jar target/example-0.0.1-SNAPSHOT.jar
+	 java -Dsentry.release=$(SENTRY_RELEASE) -jar target/example-0.0.1-SNAPSHOT.jar
