@@ -6,6 +6,7 @@ import io.sentry.Sentry;
 import io.sentry.SentryOptions;
 import io.sentry.SentryEvent;
 import java.io.PrintStream;
+import java.util.Arrays;
 
 @Component
 public class CustomBeforeSendCallback implements SentryOptions.BeforeSendCallback {
