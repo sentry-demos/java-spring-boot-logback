@@ -72,6 +72,8 @@ public class Application {
 
 		MDC.put("sessionId", sessionId);
 		MDC.put("transactionId", transactionId);
+
+		// TODO does this get called as a message?
 		logger.info("Called checkout");
 		try {
 			checkout(order.getCart());
@@ -80,7 +82,7 @@ public class Application {
 		}
 	}
 
-	@GetMapping("/capture-message")
+	@GetMapping("/message")
 	public String CaptureMessage() {
 		Sentry.configureScope(scope -> {
 			scope.setExtra("springVersion", SpringVersion.getVersion());

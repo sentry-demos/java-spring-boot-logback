@@ -14,7 +14,7 @@ public class CustomBeforeSendCallback implements SentryOptions.BeforeSendCallbac
   
     @Override
     public SentryEvent execute(SentryEvent event, Object hint) {
-        // Example: Never send server name in events
+        // Data Scrubbing Example: Never send server name in events
         // event.setServerName(null);
 
         logger.info("BEFORE SEND......");
