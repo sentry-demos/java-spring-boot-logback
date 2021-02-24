@@ -5,19 +5,23 @@ import org.springframework.stereotype.Component;
 import io.sentry.Sentry;
 import io.sentry.SentryOptions;
 import io.sentry.SentryEvent;
-
+import java.io.PrintStream;
 
 @Component
 public class CustomBeforeSendCallback implements SentryOptions.BeforeSendCallback {
-    private static final Logger logger = LoggerFactory.getLogger(Application.class);
-  
   
     @Override
     public SentryEvent execute(SentryEvent event, Object hint) {
-        // Data Scrubbing Example: Never send server name in events
+        // Data Scrubbing
+        // Example: Never send server name in events
         // event.setServerName(null);
 
-        logger.info("BEFORE SEND......");
+        // Fingerprinting
+        // Example: Group together errors that are not captured by the Application class's logger.
+        if (event.getLogger() != "io.sentry.demos.example.Application" && event.getLogger() != null) {
+            System.out.print("\nnon-app, so set same fingerprint\n");
+            event.setFingerprints(Arrays.asList("non-app"));
+        }
         return event;
     }
 }
