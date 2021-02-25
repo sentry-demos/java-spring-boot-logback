@@ -20,11 +20,11 @@ https://docs.sentry.io/platforms/java/guides/logback/
 
  dependency    | version
 | ------------- |:-------------:|
-| sentry-logback | 3.1.1 |
-| sentry-spring-boot-starter | 3.1.1 |
+| sentry-logback | 4.1.1 |
+| sentry-spring-boot-starter | 4.1.1 |
 | Gson | 2.8.6 |
 | Spring Boot | 4.17.1 |
-| OpenJDK | 11.0.9 |
+| java | 1.8 |
 
 ## First-time Setup
 1. Update the Sentry DSN to your project's DSN in application.properties
