@@ -1,4 +1,4 @@
-package io.sentry.demos.example;
+package io.sentry.samples.example;
 
 public class Item {
     private String id;

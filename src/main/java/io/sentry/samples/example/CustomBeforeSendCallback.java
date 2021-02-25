@@ -1,4 +1,4 @@
-package io.sentry.demos.example;
+package io.sentry.samples.example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ public class CustomBeforeSendCallback implements SentryOptions.BeforeSendCallbac
 
         // Fingerprinting
         // Example: Group together errors that are not captured by the Application class's logger.
-        // if (event.getLogger() != "io.sentry.demos.example.Application" && event.getLogger() != null) {
+        // if (event.getLogger() != "io.sentry.samples.example.Application" && event.getLogger() != null) {
         //     System.out.print("\nnon-app, so set same fingerprint\n");
         //     event.setFingerprints(Arrays.asList("non-app"));
         // }
