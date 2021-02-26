@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
 import org.springframework.web.server.ResponseStatusException;
+
 import io.sentry.Sentry;
 
 @SpringBootApplication
@@ -39,9 +39,11 @@ public class Application {
 			int currentInventory = tempInventory.get(item.getId());
 			if(currentInventory <= 0) {
 				String message = "No inventory for " + item.getId();
+				System.out.println(message);
 				throw new RuntimeException(message);
 			}
-			tempInventory.put(item.getId(), currentInventory-1);
+			currentInventory = currentInventory - 1;
+			tempInventory.put(item.getId(), currentInventory);
 		}
 		inventory = tempInventory;
 	}
