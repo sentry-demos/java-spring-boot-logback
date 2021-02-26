@@ -33,6 +33,7 @@ public class Application {
 	private static Map<String, Integer> inventory = new HashMap<>();
 
 	private void checkout(List<Item> cart) {
+
 		Map<String, Integer> tempInventory = inventory;
 		for(Item item : cart) {
 			int currentInventory = tempInventory.get(item.getId());
@@ -40,8 +41,7 @@ public class Application {
 				String message = "No inventory for " + item.getId();
 				throw new RuntimeException(message);
 			}
-
-			tempInventory.put(item.getId(), currentInventory--);
+			tempInventory.put(item.getId(), currentInventory-1);
 		}
 		inventory = tempInventory;
 	}
@@ -52,25 +52,13 @@ public class Application {
 
 	@CrossOrigin(origins = "http://localhost:5000")
 	@PostMapping("/checkout")
-	public void CheckoutCart(@RequestHeader(name = "X-Session-ID", required = true) String sessionId,
-							 @RequestHeader(name = "X-Transaction-ID", required = true) String transactionId,
-							 @RequestBody Order order) {
-
-		// perform checkout
-		
-		// Because MDC is thread dependent, it won't be added
-		// to exceptions that aren't caught
-		//
-		// So we will wrap in try/catch
+	public void CheckoutCart(@RequestBody Order order) {
 		Sentry.configureScope(scope -> {
-			scope.setTag("sessionId", sessionId);
-			scope.setTag("transactionId", transactionId);
-
 			scope.setExtra("cart", order.toJson());
 		});
 
-		MDC.put("sessionId", sessionId);
-		MDC.put("transactionId", transactionId);
+		MDC.put("springVersion", SpringVersion.getVersion());
+		MDC.put("jdkVersion", SystemProperties.get("java.version"));
 
 		try {
 			checkout(order.getCart());
@@ -112,8 +100,8 @@ public class Application {
 	} 
 
 	public static void main(String[] args) {
-		inventory.put("wrench", 0);
-		inventory.put("nails", 0);
+		inventory.put("wrench", 1);
+		inventory.put("nails", 1);
 		inventory.put("hammer", 1);
 
 		SpringApplication.run(Application.class, args);
