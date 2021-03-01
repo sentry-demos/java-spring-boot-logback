@@ -94,11 +94,11 @@ public class Application {
 		return "Success";
 	}
 
-	@GetMapping("/unhandled")
-	public String UnhandledError() {
+	@GetMapping("/handled-and-captured-by-sentry")
+	public String HandledAndCapturedBySentryError() {
 		String someLocalVariable = "stack locals";
 
-		throw new RuntimeException("Unhandled exception!");
+		throw new RuntimeException("Handled and captured by sentry!");
 	} 
 
 	public static void main(String[] args) {
