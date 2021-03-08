@@ -1,4 +1,4 @@
-package io.sentry.demos.example;
+package io.sentry.samples.example;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -20,9 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.server.ResponseStatusException;
 
-import io.sentry.Sentry;;
+import io.sentry.Sentry;
 
 @SpringBootApplication
 @RestController
@@ -32,45 +33,35 @@ public class Application {
 	private static Map<String, Integer> inventory = new HashMap<>();
 
 	private void checkout(List<Item> cart) {
+
 		Map<String, Integer> tempInventory = inventory;
 		for(Item item : cart) {
 			int currentInventory = tempInventory.get(item.getId());
 			if(currentInventory <= 0) {
 				String message = "No inventory for " + item.getId();
+				System.out.println(message);
 				throw new RuntimeException(message);
 			}
-
-			tempInventory.put(item.getId(), currentInventory--);
+			currentInventory = currentInventory - 1;
+			tempInventory.put(item.getId(), currentInventory);
 		}
 		inventory = tempInventory;
 	}
 
-	// Class constructor to initialize logging 
 	public void Application() {
 
 	}
 
+	@CrossOrigin(origins = "http://localhost:5000")
 	@PostMapping("/checkout")
-	public void CheckoutCart(@RequestHeader(name = "X-Session-ID", required = true) String sessionId,
-							 @RequestHeader(name = "X-Transaction-ID", required = true) String transactionId,
-							 @RequestBody Order order) {
-
-		// perform checkout
-		
-		// Because MDC is thread dependent, it won't be added
-		// to exceptions that aren't caught
-		//
-		// So we will wrap in try/catch
+	public void CheckoutCart(@RequestBody Order order) {
 		Sentry.configureScope(scope -> {
-			scope.setTag("sessionId", sessionId);
-			scope.setTag("transactionId", transactionId);
-
 			scope.setExtra("cart", order.toJson());
 		});
 
-		MDC.put("sessionId", sessionId);
-		MDC.put("transactionId", transactionId);
-		logger.info("Called checkout");
+		MDC.put("springVersion", SpringVersion.getVersion());
+		MDC.put("jdkVersion", SystemProperties.get("java.version"));
+
 		try {
 			checkout(order.getCart());
 		} catch (Exception e) {
@@ -78,7 +69,7 @@ public class Application {
 		}
 	}
 
-	@GetMapping("/capture-message")
+	@GetMapping("/message")
 	public String CaptureMessage() {
 		Sentry.configureScope(scope -> {
 			scope.setExtra("springVersion", SpringVersion.getVersion());
@@ -97,31 +88,21 @@ public class Application {
 		try {
 			int example = 1/0;
 		} catch (Exception e) {
+			logger.error("caught exception", e);
 			return "Fail";
 		}
 		return "Success";
 	}
 
-	@GetMapping("/filtered")
-	public String HandledFilteredError() {
-		try {
-			int example = 1/0;
-		} catch (Exception e) {
-			return "Success";
-		}
-		return "Success";
-	}
-
+	// This Sentry event produced by this is marked as handled:true
 	@GetMapping("/unhandled")
 	public String UnhandledError() {
-		String someLocalVariable = "stack locals";
-
-		throw new RuntimeException("Unhandled exception!");
+		throw new RuntimeException("Unhandled Exception!");
 	} 
 
 	public static void main(String[] args) {
-		inventory.put("wrench", 0);
-		inventory.put("nails", 0);
+		inventory.put("wrench", 1);
+		inventory.put("nails", 1);
 		inventory.put("hammer", 1);
 
 		SpringApplication.run(Application.class, args);

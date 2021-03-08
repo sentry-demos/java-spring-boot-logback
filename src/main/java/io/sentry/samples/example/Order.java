@@ -1,4 +1,4 @@
-package io.sentry.demos.example;
+package io.sentry.samples.example;
 
 import java.util.List;
 
