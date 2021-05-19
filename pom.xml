@@ -23,13 +23,13 @@
 		<dependency>
 			<groupId>io.sentry</groupId>
 			<artifactId>sentry-logback</artifactId>
-			<version>4.2.0</version>
+			<version>4.3.0</version>
 		</dependency>
 		<!-- Sentry SDK for Java Spring Boot-->
 		<dependency>
 			<groupId>io.sentry</groupId>
 			<artifactId>sentry-spring-boot-starter</artifactId>
-			<version>4.2.0</version>
+			<version>4.3.0</version>
 		</dependency>
 	    <!--  Gson: Java to Json conversion -->
 		<dependency>
