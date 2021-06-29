@@ -43,6 +43,20 @@ You can change the log level for events in the `application.properties` file.
 The minimum event level is set to `info` by default which is probably
 too verbose. 
 
+If you run into `mvn: command not found error` follow the steps below to debug. 
+1. Downloaded maven apache-maven-3.8.1-bin.tar.gz (Binary tar.gz archive link)
+2. Untar and unzip the above tar file to create an archive directory called apache-maven-3.8.1
+3. Create a directory called Maven at home directory
+4. Move the apache maven archive directory to Maven directory
+5. Edit `.zshrc` in your home directory and make the following entries: 
+`export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+
+export M2_HOME=/Users/nandithaembar/Maven/apache-maven-3.8.1
+
+PATH=$PATH:$JAVA_HOME/bin:$M2_HOME/bin`
+6. Once the changes above are made, start a new terminal and run `make`. 
+
+
 ## Primary files
 `Application.java` - this has the main code for the application and shows
 how to add tags and extra data via Sentry.configureScope as well as add
