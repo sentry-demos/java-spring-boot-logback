@@ -49,11 +49,12 @@ If you run into `mvn: command not found error` follow the steps below to debug.
 3. Create a directory called Maven at home directory
 4. Move the apache maven archive directory to Maven directory
 5. Edit `.zshrc` in your home directory and make the following entries: 
-`export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+`export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)`
 
-export M2_HOME=/Users/nandithaembar/Maven/apache-maven-3.8.1
+`export M2_HOME=/Users/nandithaembar/Maven/apache-maven-3.8.1`
 
-PATH=$PATH:$JAVA_HOME/bin:$M2_HOME/bin`
+`PATH=$PATH:$JAVA_HOME/bin:$M2_HOME/bin`
+
 6. Once the changes above are made, start a new terminal and run `make`. 
 
 
