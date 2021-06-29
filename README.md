@@ -44,7 +44,7 @@ The minimum event level is set to `info` by default which is probably
 too verbose. 
 
 If you run into `mvn: command not found error` follow the steps below to debug. 
-1. Downloaded maven apache-maven-3.8.1-bin.tar.gz (Binary tar.gz archive link)
+1. Downloaded maven (https://downloads.apache.org/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz) - Binary tar.gz archive link
 2. Untar and unzip the above tar file to create an archive directory called apache-maven-3.8.1
 3. Create a directory called Maven at home directory
 4. Move the apache maven archive directory to Maven directory
